@@ -1,15 +1,24 @@
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
-  name: jobmanager
+  name: flink-jobmanager
   namespace: flink
 spec:
-  selector:
-    component: jobmanager
+  type: ClusterIP
+  clusterIP: 10.91.253.10
   ports:
-    - port: 6123
-      targetPort: 6123
-      name: flink
-    - port: 50101
-      targetPort: 50101
-      name: blobserver
+  - name: rpc
+    port: 6123
+  - name: blob
+    port: 6124
+  - name: query
+    port: 6125
+  - name: ui
+    port: 8081
+    targetPort: 8081
+  - name: http
+    port: 80
+    targetPort: 8081
+  selector:
+    app: flink
+    component: jobmanager
