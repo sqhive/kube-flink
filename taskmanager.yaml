@@ -4,7 +4,7 @@ metadata:
   name: flink-taskmanager
   namespace: flink
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -14,6 +14,9 @@ spec:
       containers:
         - name: taskmanager
           image: flink:latest
+          resources:
+            requests:
+              cpu: 5
           args:
             - taskmanager
           ports:
